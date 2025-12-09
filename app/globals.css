@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[data-slot="input-wrapper"] {
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+[data-slot="inner-wrapper"] {
+  flex-direction: row !important;
+  align-items: center !important;
+  flex: 1;
+}
+
+[data-slot="main-wrapper"] {
+  flex-direction: row !important;
+}
