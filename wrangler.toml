@@ -3,7 +3,7 @@
 name = "exa-search-engine"
 main = ".open-next/worker.js"
 compatibility_date = "2025-12-01"
-compatibility_flags = ["nodejs_compat_v2"]
+compatibility_flags = ["nodejs_compat"]
 
 # 静态资源
 assets = { directory = ".open-next/assets", binding = "ASSETS" }
