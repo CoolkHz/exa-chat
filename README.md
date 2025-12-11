@@ -2,7 +2,7 @@
 
 一个基于 [Exa API](https://exa.ai) 的 AI 搜索引擎，支持网页搜索和 AI 问答两种模式。
 
-![Exa Search](https://img.shields.io/badge/Next.js-14-black) ![HeroUI](https://img.shields.io/badge/HeroUI-2.8-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Exa Search](https://img.shields.io/badge/Next.js-16-black) ![HeroUI](https://img.shields.io/badge/HeroUI-2.8-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 
 ## ✨ 功能特性
 
