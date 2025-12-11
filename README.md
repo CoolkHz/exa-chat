@@ -1,8 +1,8 @@
-# Exa Search
+# Exa Chat
 
 一个基于 [Exa API](https://exa.ai) 的 AI 搜索引擎，支持网页搜索、AI 问答和代码助手三种模式。
 
-![Exa Search](https://img.shields.io/badge/Next.js-16-black) ![HeroUI](https://img.shields.io/badge/HeroUI-2.8-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue) ![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange)
+![Exa Chat](https://img.shields.io/badge/Next.js-16-black) ![HeroUI](https://img.shields.io/badge/HeroUI-2.8-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue) ![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange)
 
 ## ✨ 功能特性
 
