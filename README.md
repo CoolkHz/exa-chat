@@ -2,9 +2,9 @@
 
 一个基于 [Exa API](https://exa.ai) 的 AI 搜索引擎，支持网页搜索、AI 问答和代码助手三种模式。
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/your-username/exa-chat)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CoolkHz/exa-chat&env=EXA_API_KEY&envDescription=Exa%20API%20Key%20for%20search%20functionality&envLink=https://exa.ai)
 
-![Exa Chat](https://img.shields.io/badge/Next.js-15-black) ![HeroUI](https://img.shields.io/badge/HeroUI-2.8-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue) ![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange)
+![Exa Chat](https://img.shields.io/badge/Next.js-15-black) ![HeroUI](https://img.shields.io/badge/HeroUI-2.8-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue) ![Vercel](https://img.shields.io/badge/Vercel-Deploy-black)
 
 ## ✨ 功能特性
 
@@ -13,7 +13,7 @@
 - 💻 **代码助手** - 专业编程问答模式，支持上下文对话
 - 🎨 **现代 UI** - 基于 HeroUI 组件库，支持深色/浅色主题
 - 📱 **响应式设计** - 完美适配桌面和移动设备
-- ⚡ **Edge Runtime** - 部署在 Cloudflare Workers，全球边缘节点加速
+- ⚡ **极速部署** - 一键部署到 Vercel
 - 🖼️ **代码高亮** - 支持多语言代码语法高亮，主题自适应
 
 ## 🛠️ 技术栈
@@ -23,24 +23,34 @@
 - **样式**: Tailwind CSS 4
 - **动画**: Framer Motion
 - **搜索 API**: Exa
-- **部署**: Cloudflare Workers (OpenNext)
+- **部署**: Vercel
 - **语言**: TypeScript
 
 ## 🚀 快速开始
 
-### 前置要求
+### 一键部署到 Vercel
+
+点击下方按钮，一键部署到 Vercel：
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CoolkHz/exa-chat&env=EXA_API_KEY&envDescription=Exa%20API%20Key%20for%20search%20functionality&envLink=https://exa.ai)
+
+部署时会提示你输入 `EXA_API_KEY`，填入你的 Exa API Key 即可。
+
+### 本地开发
+
+#### 前置要求
 
 - Node.js 20+
 - pnpm (推荐)
 - Exa API Key ([获取地址](https://exa.ai))
 
-### 安装步骤
+#### 安装步骤
 
 1. 克隆项目
 
 ```bash
-git clone https://github.com/your-username/exa-search.git
-cd exa-search
+git clone https://github.com/CoolkHz/exa-chat.git
+cd exa-chat
 ```
 
 2. 安装依赖
@@ -69,38 +79,10 @@ pnpm dev
 
 5. 打开浏览器访问 [http://localhost:3000](http://localhost:3000)
 
-## ☁️ 部署到 Cloudflare Workers
-
-### 方式一：GitHub Actions 自动部署（推荐）
-
-1. Fork 本项目到你的 GitHub
-
-2. 在 GitHub 仓库 Settings → Secrets and variables → Actions 添加：
-   - `CLOUDFLARE_API_TOKEN` - Cloudflare API Token
-   - `CLOUDFLARE_ACCOUNT_ID` - Cloudflare Account ID
-
-3. 在 Cloudflare Dashboard 设置 Worker 环境变量：
-   - Workers & Pages → 你的 Worker → Settings → Variables
-   - 添加 `EXA_API_KEY`
-
-4. 推送代码到 main 分支，自动触发部署
-
-### 方式二：本地部署
-
-```bash
-# 设置 API Key
-pnpm wrangler secret put EXA_API_KEY
-
-# 构建并部署
-pnpm cf:deploy
-```
-
-> ⚠️ Windows 用户可能遇到符号链接问题，建议使用 GitHub Actions 部署
-
 ## 📁 项目结构
 
 ```
-exa-search/
+exa-chat/
 ├── app/
 │   ├── api/
 │   │   ├── search/route.ts    # 搜索 API
@@ -116,13 +98,8 @@ exa-search/
 │   ├── PromptInput.tsx        # 输入框组件
 │   ├── SuggestionCards.tsx    # 建议卡片
 │   └── Header.tsx             # 头部导航
-├── lib/
-│   └── types.ts               # 类型定义
-├── .github/
-│   └── workflows/
-│       └── deploy.yml         # GitHub Actions 部署
-├── wrangler.toml              # Cloudflare Workers 配置
-└── open-next.config.ts        # OpenNext 配置
+└── lib/
+    └── types.ts               # 类型定义
 ```
 
 ## 🔑 环境变量
@@ -151,4 +128,4 @@ MIT License
 - [Exa](https://exa.ai) - AI 搜索 API
 - [HeroUI](https://heroui.com) - UI 组件库
 - [Next.js](https://nextjs.org) - React 框架
-- [OpenNext](https://opennext.js.org) - Cloudflare 部署适配
+- [Vercel](https://vercel.com) - 部署平台
