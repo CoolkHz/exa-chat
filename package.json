@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cf:build": "pnpm build && pnpm opennextjs-cloudflare build --skipNextBuild",
+    "cf:build": "pnpm build && pnpm opennextjs-cloudflare build",
     "cf:dev": "pnpm cf:build && wrangler dev",
     "cf:deploy": "pnpm cf:build && wrangler deploy"
   },
