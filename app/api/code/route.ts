@@ -1,39 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import Exa from "exa-js";
+import { exaAnswer } from "@/lib/exa-client";
 import type { CodeRequest, CodeResponse, Citation, CodeMessage } from "@/lib/types";
 
 export const runtime = "edge";
 
-function getExa() {
-  return new Exa(process.env.EXA_API_KEY);
-}
-
-// Build conversation context string
 function buildConversationContext(history: CodeMessage[]): string {
   if (!history || history.length === 0) return "";
-  
-  // Limit to last 3 exchanges to avoid token limits
   const recentHistory = history.slice(-6);
-  
-  const contextText = recentHistory
+  return recentHistory
     .map((msg) => `${msg.role === "user" ? "User" : "Assistant"}: ${msg.content}`)
     .join("\n\n");
-  
-  return contextText;
 }
 
-// Build query with context
 function buildQueryWithContext(query: string, history: CodeMessage[]): string {
   const context = buildConversationContext(history);
   if (!context) return query;
-  
-  return `Based on our previous conversation:
-
-${context}
-
-Current question: ${query}
-
-Please answer considering the context above.`;
+  return `Based on our previous conversation:\n\n${context}\n\nCurrent question: ${query}\n\nPlease answer considering the context above.`;
 }
 
 export async function POST(request: NextRequest) {
@@ -55,10 +37,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Build query with conversation context
     const queryWithContext = buildQueryWithContext(query, conversationHistory);
 
-    // Use Exa answer API with code-focused system prompt
     const systemPrompt = `You are an expert programming assistant. Focus on:
 - Providing accurate, working code examples
 - Explaining code concepts clearly
@@ -74,14 +54,12 @@ When answering coding questions:
 
 If the user refers to previous code or questions, use the provided context to give a relevant answer.`;
 
-    const exa = getExa();
-    const answerResponse = await exa.answer(queryWithContext, {
+    const answerResponse = await exaAnswer(queryWithContext, {
       text: true,
       model: "exa",
       systemPrompt,
     });
 
-    // Handle empty answer
     const answerText = answerResponse.answer as string | undefined;
     if (!answerText || answerText.trim().length === 0) {
       return NextResponse.json(
@@ -90,7 +68,7 @@ If the user refers to previous code or questions, use the provided context to gi
       );
     }
 
-    const citations: Citation[] = (answerResponse.citations || []).map((citation) => ({
+    const citations: Citation[] = (answerResponse.citations || []).map((citation: Record<string, unknown>) => ({
       id: citation.id || crypto.randomUUID(),
       url: citation.url,
       title: citation.title || "Untitled",

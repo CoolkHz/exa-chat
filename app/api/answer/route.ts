@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import Exa from "exa-js";
+import { exaAnswer } from "@/lib/exa-client";
 import type { AnswerRequest, AnswerResponse, Citation } from "@/lib/types";
 
 export const runtime = "edge";
-
-function getExa() {
-  return new Exa(process.env.EXA_API_KEY);
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,12 +23,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const exa = getExa();
-    const answerResponse = await exa.answer(query, {
-      text: true,
-    });
+    const answerResponse = await exaAnswer(query, { text: true });
 
-    // Handle empty answer
     const answerText = answerResponse.answer as string | undefined;
     if (!answerText || answerText.trim().length === 0) {
       return NextResponse.json(
@@ -41,7 +33,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const citations: Citation[] = (answerResponse.citations || []).map((citation) => ({
+    const citations: Citation[] = (answerResponse.citations || []).map((citation: Record<string, unknown>) => ({
       id: citation.id || crypto.randomUUID(),
       url: citation.url,
       title: citation.title || "Untitled",

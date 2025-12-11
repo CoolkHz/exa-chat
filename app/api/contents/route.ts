@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import Exa from "exa-js";
+import { exaGetContents } from "@/lib/exa-client";
 
 export const runtime = "edge";
-
-function getExa() {
-  return new Exa(process.env.EXA_API_KEY);
-}
 
 export interface ContentsRequest {
   ids: string[];
@@ -42,22 +38,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const exa = getExa();
-    const contentsResponse = await exa.getContents(ids, {
-      text: {
-        maxCharacters: 10000, // Get more content for detail view
-        includeHtmlTags: false,
-      },
-      highlights: {
-        numSentences: 5,
-        highlightsPerUrl: 5,
-      },
-      summary: {
-        query: "", // Empty query for general summary
-      },
+    const contentsResponse = await exaGetContents(ids, {
+      text: { maxCharacters: 10000, includeHtmlTags: false },
+      highlights: { numSentences: 5, highlightsPerUrl: 5 },
+      summary: { query: "" },
     });
 
-    const results: ContentsResult[] = contentsResponse.results.map((result) => ({
+    const results: ContentsResult[] = (contentsResponse.results || []).map((result: Record<string, unknown>) => ({
       id: result.id || "",
       url: result.url,
       title: result.title || "Untitled",

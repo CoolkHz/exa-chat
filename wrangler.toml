@@ -15,3 +15,7 @@ routes = [
 
 [vars]
 # 环境变量通过 wrangler secret put EXA_API_KEY 设置
+
+# 日志配置
+[observability]
+enabled = true

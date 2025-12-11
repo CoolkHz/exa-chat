@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import Exa from "exa-js";
+import { exaSearch } from "@/lib/exa-client";
 import type { SearchRequest, SearchResponse, SearchResult } from "@/lib/types";
 
 export const runtime = "edge";
-
-function getExa() {
-  return new Exa(process.env.EXA_API_KEY);
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,25 +23,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const exa = getExa();
-    const searchResponse = await exa.searchAndContents(query, {
+    const searchResponse = await exaSearch(query, {
       type,
       numResults,
       useAutoprompt,
-      text: {
-        maxCharacters: 500,
-        includeHtmlTags: false,
-      },
-      highlights: {
-        numSentences: 3,
-        highlightsPerUrl: 3,
-      },
-      summary: {
-        query: query,
-      },
+      text: { maxCharacters: 500, includeHtmlTags: false },
+      highlights: { numSentences: 3, highlightsPerUrl: 3 },
+      summary: { query },
     });
 
-    const results: SearchResult[] = searchResponse.results.map((result) => ({
+    const results: SearchResult[] = (searchResponse.results || []).map((result: Record<string, unknown>) => ({
       id: result.id || crypto.randomUUID(),
       url: result.url,
       title: result.title || "Untitled",
