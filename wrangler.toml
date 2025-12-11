@@ -8,10 +8,10 @@ compatibility_flags = ["nodejs_compat"]
 # 静态资源
 assets = { directory = ".open-next/assets", binding = "ASSETS" }
 
-# 自定义域名（需要先在 Cloudflare DNS 添加域名）
-routes = [
-  { pattern = "exaer.dpdns.org", custom_domain = true }
-]
+# 自定义域名（部署成功后再配置）
+# routes = [
+#   { pattern = "exaer.dpdns.org", custom_domain = true }
+# ]
 
 [vars]
 # 环境变量通过 wrangler secret put EXA_API_KEY 设置
